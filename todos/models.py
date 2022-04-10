@@ -1,7 +1,12 @@
 from django.db import models
 from django.utils import timezone
+import random
 
 # Create your models here.
+def random_color():
+    color = "#"+"%06x" % random.randint(0, 0xFFFFFF)
+    return color
+
 class SoftDeletionManager(models.Manager):
     use_for_related_fields = True
     def get_queryset(self):
@@ -49,8 +54,8 @@ class Tag(models.Model):
     owner = models.ForeignKey('auth.User', related_name='tags', on_delete=models.CASCADE)
     todos = models.ManyToManyField(Todo, related_name='tag_list', blank=True)
     name = models.CharField(max_length=50)
-    text_color = models.CharField(max_length=50)
-    background_color = models.CharField(max_length=50)
+    text_color = models.CharField(max_length=50, default=random_color)
+    background_color = models.CharField(max_length=50, default=random_color)
 
     class Meta:
         ordering=['created_at']

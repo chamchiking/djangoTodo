@@ -15,8 +15,8 @@ TAG_BASE_URL = reverse('tags-list')
 def sample_tag(user, **params):
     defaults={
         'name': 'name',
-        'text_color': 'text_color',
-        'background_color': 'background_color'
+        # 'text_color': '#25fa37',
+        # 'background_color': '#25fa37'
     }
     defaults.update(params)
     return Tag.objects.create(owner=user, **defaults)
@@ -70,8 +70,8 @@ class PrivateTagsApiTests(TestCase):
     def test_create_tag_successful(self):
         payload={
             'name': 'Test Tag',
-            'text_color': 'text_color',
-            'background_color': 'background_color',
+            # 'text_color': '#25fa37',
+            # 'background_color': '#25fa37',
             }
         res = self.client.post(TAG_BASE_URL, payload)
         exists = Tag.objects.filter(

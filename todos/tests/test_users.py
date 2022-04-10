@@ -6,12 +6,11 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from rest_framework.reverse import reverse
 
-# from todos.serializers import UserSerializer
+from todos.serializers import UserSerializer
 
 CREATE_USER_URL = 'http://localhost:8000/auth/users/'
 TOKEN_URL = 'http://localhost:8000/auth/token/login/'
 ME_URL = 'http://localhost:8000/auth/users/me/'
-# print(reverse('users-list'))
 
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
@@ -42,6 +41,7 @@ class PublicUserTest(TestCase):
         self.assertNotIn('password', res.data)
         # ----------------------------------
         self.assertIn('auth_token', res.data)
+        # login_res = self.client.post(ME_URL)
     
     def test_user_exists(self):
         # 존재하는 유저 다시 생성안되는지 테스트
@@ -99,8 +99,8 @@ class PrivateUserTest(TestCase):
         )
         self.client.force_authenticate(user = self.user)
 
-    # def test_retrieve_user_authorized(self):
-    #     user_payload = UserSerializer(self.user)
-    #     res = self.client.get(ME_URL)
-    #     self.assertEqual(res.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(res.data,user_payload.data)
+    def test_retrieve_user_authorized(self):
+        user_payload = UserSerializer(self.user)
+        res = self.client.get(ME_URL)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data,user_payload.data)

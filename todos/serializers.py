@@ -21,6 +21,7 @@ class TagSerializer(serializers.ModelSerializer):
         #     'background_color',
         # )
 
+
 class TodoSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     # tag_list = TagSerializer(read_only=True,many=True, required=False)
