@@ -12,9 +12,8 @@ from rest_framework.reverse import reverse
 from todos.models import Todo, Tag
 from todos.serializers import TodoSerializer, TagSerializer
 
-# from todos.views import *
-CREATE_USER_URL = 'http://localhost:8000/auth/users/'
-TOKEN_URL = 'http://localhost:8000/auth/token/login/'
+CREATE_USER_URL = reverse('user-list')
+TOKEN_URL = reverse('login')
 TODO_BASE_URL = reverse('todos-list')
 
 def sample_todo(user, **params):

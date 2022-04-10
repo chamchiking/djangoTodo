@@ -8,15 +8,13 @@ from rest_framework.reverse import reverse
 from todos.models import Todo, Tag
 from todos.serializers import TagSerializer, TodoSerializer
 
-CREATE_USER_URL = 'http://localhost:8000/auth/users/'
-TOKEN_URL = 'http://localhost:8000/auth/token/login/'
+CREATE_USER_URL = reverse('user-list')
+TOKEN_URL = reverse('login')
 TAG_BASE_URL = reverse('tags-list')
 
 def sample_tag(user, **params):
     defaults={
         'name': 'name',
-        # 'text_color': '#25fa37',
-        # 'background_color': '#25fa37'
     }
     defaults.update(params)
     return Tag.objects.create(owner=user, **defaults)

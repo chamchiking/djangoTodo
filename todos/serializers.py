@@ -11,24 +11,10 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields='__all__'
-        # fields=(
-        #     'id',
-        #     'owner',
-        #     'created_at',
-        #     'updated_at',
-        #     'name',
-        #     'text_color',
-        #     'background_color',
-        # )
 
 
 class TodoSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    # tag_list = TagSerializer(read_only=True,many=True, required=False)
-    # tag_list = serializers.PrimaryKeyRelatedField(
-    #     many=True,
-    #     queryset = Tag.objects.all()
-    # )
     tag_list = serializers.SlugRelatedField(
         many=True,
         queryset = Tag.objects.all(),
@@ -61,7 +47,6 @@ class UserWithTokenSerializer(UserCreatePasswordRetypeSerializer):
         model=User
         fields=('email', 'username', 'password', 'auth_token')
 
-    
     def get_auth_token(self, obj):
         return str(Token.objects.get_or_create(user=obj)[0])
             

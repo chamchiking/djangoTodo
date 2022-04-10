@@ -5,12 +5,13 @@ from django.contrib.auth.models import User
 from rest_framework.test import APIClient
 from rest_framework import status
 from rest_framework.reverse import reverse
+from django.urls import resolve
 
 from todos.serializers import UserSerializer
 
-CREATE_USER_URL = 'http://localhost:8000/auth/users/'
-TOKEN_URL = 'http://localhost:8000/auth/token/login/'
-ME_URL = 'http://localhost:8000/auth/users/me/'
+CREATE_USER_URL = reverse('user-list')
+TOKEN_URL = reverse('login')
+ME_URL = reverse('user-me')
 
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
